@@ -1,13 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const Header = ({course}) => {
+const Header = ({ course }) => {
   return <h1>{course}</h1>;
 };
 
-
-
-const Content = (props) => {
+const Part = (props) => {
   return (
     <p>
       {props.part} {props.exercise}
@@ -15,13 +13,18 @@ const Content = (props) => {
   );
 };
 
-const Total = (props) => {
+const Content = (props) => {
   return (
-    <p>
-      Number of exercises{" "}
-      {props.ex1 + props.ex2 + props.ex3}
-    </p>
+    <div>
+      <Part part={props.part1} exercise={props.exercises1} />
+      <Part part={props.part2} exercise={props.exercises2} />
+      <Part part={props.part3} exercise={props.exercises3} />
+    </div>
   );
+};
+
+const Total = (props) => {
+  return <p>Number of exercises {props.ex1 + props.ex2 + props.ex3}</p>;
 };
 
 const App = () => {
@@ -36,9 +39,14 @@ const App = () => {
   return (
     <div>
       <Header course={course} />
-      <Content part={part1} exercise={exercises1} />
-      <Content part={part2} exercise={exercises2} />
-      <Content part={part3} exercise={exercises3} />
+      <Content
+        part1={part1}
+        part2={part2}
+        part3={part3}
+        exercise1={exercises1}
+        exercise2={exercises2}
+        exercise3={exercises3}
+      />
       <Total ex1={exercises1} ex2={exercises2} ex3={exercises3} />
     </div>
   );
