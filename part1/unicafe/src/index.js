@@ -2,12 +2,9 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-const Display = ({ element, text }) => {
-  return (element === "h1" ? <h1>{text}</h1> : <p>{text}</p>)
-}
+const Display = ({ element, text }) => (element === "h1" ? <h1>{text}</h1> : <p>{text}</p>)
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
-
 
 const App = () => {
   // save clicks of each button to its own state
@@ -19,12 +16,17 @@ const App = () => {
     if (feedback === "good") setGood(good + 1)
     if (feedback === "neutral") setNeutral(neutral + 1)
     if (feedback === "bad") setBad(bad + 1)
-    
   }
-  let goodText = "Good " + good 
-  let neutralText = "Neutral " + neutral 
-  let badText = "Bad " + bad 
 
+  const rounder = (num) => (Math.round(num * 100)) / 100
+
+  let goodText = "Good " + good
+  let neutralText = "Neutral " + neutral
+  let badText = "Bad " + bad
+  let total = (good + neutral + bad)
+  let allText = "All " + total
+  let averageText = total !== 0 ? ("Average " + rounder((good - bad) / total)) : ("Average " + 0)
+  let positiveText = good !== 0 ? ("Positive " + rounder(good / total * 100) + "%") : ("Positive " + 0)
 
   return (
     <div className="container">
@@ -38,6 +40,9 @@ const App = () => {
       <Display element="p" text={goodText} />
       <Display element="p" text={neutralText} />
       <Display element="p" text={badText} />
+      <Display element="p" text={allText} />
+      <Display element="p" text={averageText} />
+      <Display element="p" text={positiveText} />
     </div>
   )
 }
