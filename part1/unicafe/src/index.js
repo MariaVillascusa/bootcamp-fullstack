@@ -6,8 +6,19 @@ const Display = ({ element, text }) => (element === "h1" ? <h1>{text}</h1> : <p>
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
-const Statistics = ({ value }) => <Display element="p" text={value}></Display>
-
+const Statistics = ({ all, average, positive }) => {
+  console.log(all)
+  if (all === "All 0") {
+    return <Display element="p" text="No feedback given"></Display>
+  }
+  return (
+    <div>
+      <Display element="p" text={all}></Display>
+      <Display element="p" text={average}></Display>
+      <Display element="p" text={positive}></Display>
+    </div>
+  )
+}
 
 const App = () => {
   // save clicks of each button to its own state
@@ -44,9 +55,7 @@ const App = () => {
       <Display element="p" text={neutralText} />
       <Display element="p" text={badText} />
 
-      <Statistics value={allText} />
-      <Statistics value={averageText} />
-      <Statistics value={positiveText} />
+      <Statistics all={allText} average={averageText} positive={positiveText} negative={positiveText} />
 
     </div>
   )
