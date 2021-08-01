@@ -6,6 +6,9 @@ const Display = ({ element, text }) => (element === "h1" ? <h1>{text}</h1> : <p>
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
+const Statistics = ({ value }) => <Display element="p" text={value}></Display>
+
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
@@ -40,9 +43,11 @@ const App = () => {
       <Display element="p" text={goodText} />
       <Display element="p" text={neutralText} />
       <Display element="p" text={badText} />
-      <Display element="p" text={allText} />
-      <Display element="p" text={averageText} />
-      <Display element="p" text={positiveText} />
+
+      <Statistics value={allText} />
+      <Statistics value={averageText} />
+      <Statistics value={positiveText} />
+
     </div>
   )
 }
