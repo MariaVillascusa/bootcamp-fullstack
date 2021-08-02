@@ -8,14 +8,17 @@ const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const Statistics = ({ all, average, positive }) => {
   console.log(all)
-  if (all === "All 0") {
+  if (all === 0) {
     return <Display element="p" text="No feedback given"></Display>
   }
+  let allText =  "All " + all
+  let averageText = "Average " + average
+  let positiveText = "Positive " + positive
   return (
     <div>
-      <Display element="p" text={all}></Display>
-      <Display element="p" text={average}></Display>
-      <Display element="p" text={positive}></Display>
+      <Display element="p" text={allText}></Display>
+      <Display element="p" text={averageText}></Display>
+      <Display element="p" text={positiveText}></Display>
     </div>
   )
 }
@@ -37,10 +40,9 @@ const App = () => {
   let goodText = "Good " + good
   let neutralText = "Neutral " + neutral
   let badText = "Bad " + bad
-  let total = (good + neutral + bad)
-  let allText = "All " + total
-  let averageText = total !== 0 ? ("Average " + rounder((good - bad) / total)) : ("Average " + 0)
-  let positiveText = good !== 0 ? ("Positive " + rounder(good / total * 100) + "%") : ("Positive " + 0)
+  let all = (good + neutral + bad)
+  let average = all !== 0 ? (rounder((good - bad) / all)) : 0
+  let positive = good !== 0 ? (rounder(good / all * 100) + "%") : 0
 
   return (
     <div className="container">
@@ -55,7 +57,7 @@ const App = () => {
       <Display element="p" text={neutralText} />
       <Display element="p" text={badText} />
 
-      <Statistics all={allText} average={averageText} positive={positiveText} negative={positiveText} />
+      <Statistics all={all} average={average} positive={positive} />
 
     </div>
   )
