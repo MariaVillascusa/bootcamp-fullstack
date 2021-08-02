@@ -2,30 +2,30 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-const Display = ({ element, text }) => (element === "h1" ? <h1>{text}</h1> : <p>{text}</p>)
+const Display = ({ element, text, value }) => {
 
+  if (element === "h1") return <h1>{text}</h1>
+  if (element === "p") return <p>{text}</p>
+  if (element === "td") return <tr><td>{text}</td><td>{value}</td></tr>
+  if (element === "tr") return <tr><td colSpan = "2">{text}</td></tr>
+
+}
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
-const Statistic = ({ text, value }) => {
+const Statistic = ({ text, value }) => <Display element="td" text={text} value={value} />
 
-  let phrase = text + " " + value
-  return (
-    <div>
-      <Display element="p" text={phrase}></Display>
-    </div>
-  )
-}
+
 
 const Statistics = ({ all, average, positive }) => {
   if (all === 0) {
-    return <Display element="p" text="No feedback given"></Display>
+    return <Display element="tr" text="No feedback given"></Display>
   }
   return (
-    <div>
+    <>
       <Statistic text="All" value={all} />
       <Statistic text="Average" value={average} />
       <Statistic text="Positive" value={positive} />
-    </div>
+    </>
   )
 }
 
@@ -43,9 +43,6 @@ const App = () => {
 
   const rounder = (num) => (Math.round(num * 100)) / 100
 
-  let goodText = "Good " + good
-  let neutralText = "Neutral " + neutral
-  let badText = "Bad " + bad
   let all = (good + neutral + bad)
   let average = all !== 0 ? (rounder((good - bad) / all)) : 0
   let positive = good !== 0 ? (rounder(good / all * 100) + "%") : 0
@@ -53,17 +50,21 @@ const App = () => {
   return (
     <div className="container">
       <Display element="h1" text="Give feedback" />
-
-      <Button onClick={() => handleClick("good")} text="Good" />
-      <Button onClick={() => handleClick("neutral")} text="Neutral" />
-      <Button onClick={() => handleClick("bad")} text="Bad" />
-
+      <div>
+        <Button onClick={() => handleClick("good")} text="Good" />
+        <Button onClick={() => handleClick("neutral")} text="Neutral" />
+        <Button onClick={() => handleClick("bad")} text="Bad" />
+      </div>
       <Display element="h1" text="Statistics" />
-      <Display element="p" text={goodText} />
-      <Display element="p" text={neutralText} />
-      <Display element="p" text={badText} />
+      <table>
+        <tbody>
+          <Display element="td" text="Good" value={good} />
+          <Display element="td" text="Neutral" value={neutral} />
+          <Display element="td" text="Bad" value={bad} />
 
-      <Statistics average={average} all={all} positive={positive} />
+          <Statistics average={average} all={all} positive={positive} />
+        </tbody>
+      </table>
     </div>
   )
 }
