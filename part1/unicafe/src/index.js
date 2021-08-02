@@ -6,25 +6,31 @@ const Display = ({ element, text }) => (element === "h1" ? <h1>{text}</h1> : <p>
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
+const Statistic = ({ text, value }) => {
+
+  let phrase = text + " " + value
+  return (
+    <div>
+      <Display element="p" text={phrase}></Display>
+    </div>
+  )
+}
+
 const Statistics = ({ all, average, positive }) => {
-  console.log(all)
   if (all === 0) {
     return <Display element="p" text="No feedback given"></Display>
   }
-  let allText =  "All " + all
-  let averageText = "Average " + average
-  let positiveText = "Positive " + positive
   return (
     <div>
-      <Display element="p" text={allText}></Display>
-      <Display element="p" text={averageText}></Display>
-      <Display element="p" text={positiveText}></Display>
+      <Statistic text="All" value={all} />
+      <Statistic text="Average" value={average} />
+      <Statistic text="Positive" value={positive} />
     </div>
   )
 }
 
 const App = () => {
-  // save clicks of each button to its own state
+
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
@@ -57,8 +63,7 @@ const App = () => {
       <Display element="p" text={neutralText} />
       <Display element="p" text={badText} />
 
-      <Statistics all={all} average={average} positive={positive} />
-
+      <Statistics average={average} all={all} positive={positive} />
     </div>
   )
 }
