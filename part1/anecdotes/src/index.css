@@ -13,14 +13,18 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 }
 
 p {
   text-align: center;
+  margin: 3px;
 }
 
 button {
   padding: 10px 15px;
+  margin: 2px;
+  margin-top: 7px;
   border: none;
   background-color: #28f;
   color: #fff;

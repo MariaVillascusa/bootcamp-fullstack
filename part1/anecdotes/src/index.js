@@ -2,22 +2,42 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import "./index.css"
 
-const Button = ({ onClick }) => <button onClick={onClick}>Next</button>
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
-const Display = ({ anecdote }) => <p>{anecdote}</p>
+const Buttons = ({ getAnecdote, vote }) => {
+  return (
+    <div>
+      <Button onClick={vote} text="Vote" />
+      <Button onClick={getAnecdote} text="Next" />
+    </div>
+  )
+}
+
+const Display = ({ text }) => <p>{text}</p>
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const array = new Array(anecdotes.length).fill(0)
+  const [points, setPoints] = useState(array)
 
-  const getAnecdote = () => {
-    setSelected(Math.floor(Math.random() * anecdotes.length))
+  const getAnecdote = () => setSelected(Math.floor(Math.random() * anecdotes.length))
+
+  const vote = () => {
+    const copy = [...points]
+    copy[selected] += 1
+    setPoints(copy)
+    //without state
+    /* points[selected] += 1
+    console.log(points); */
   }
+  const votes = "Has " + points[selected] + " votes"
+
   return (
     <div className="container">
-      <Display anecdote={props.anecdotes[selected]} />
-      <Button onClick={getAnecdote} />
+      <Display text={props.anecdotes[selected]} />
+      <Display text={votes} />
+      <Buttons getAnecdote={getAnecdote} vote={vote} />
     </div>
-
   )
 }
 
@@ -29,6 +49,9 @@ const anecdotes = [
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
+//without state
+/* const points = new Array(anecdotes.length).fill(0)
+ */
 
 ReactDOM.render(
   <App anecdotes={anecdotes} />,
