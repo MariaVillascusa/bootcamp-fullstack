@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import "./index.css"
 
+const Title = ({ title }) => <h2>{title}</h2>
+
+const Display = ({ text }) => <p>{text}</p>
+
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const Buttons = ({ getAnecdote, vote }) => {
@@ -12,8 +16,6 @@ const Buttons = ({ getAnecdote, vote }) => {
     </div>
   )
 }
-
-const Display = ({ text }) => <p>{text}</p>
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
@@ -26,17 +28,22 @@ const App = (props) => {
     const copy = [...points]
     copy[selected] += 1
     setPoints(copy)
-    //without state
-    /* points[selected] += 1
-    console.log(points); */
   }
+  
   const votes = "Has " + points[selected] + " votes"
+  const mostVotes = Math.max(...points)
+  const index = points.indexOf(mostVotes)
+  const mostVotesText = "Has " + mostVotes + " votes"
 
   return (
     <div className="container">
+      <Title title="Anecdote of the day" />
       <Display text={props.anecdotes[selected]} />
       <Display text={votes} />
       <Buttons getAnecdote={getAnecdote} vote={vote} />
+      <Title title="Anecdote with most votes" />
+      <Display text={anecdotes[index]} />
+      <Display text={mostVotesText}/>
     </div>
   )
 }
@@ -49,9 +56,6 @@ const anecdotes = [
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
-//without state
-/* const points = new Array(anecdotes.length).fill(0)
- */
 
 ReactDOM.render(
   <App anecdotes={anecdotes} />,
