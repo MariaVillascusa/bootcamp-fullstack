@@ -12,7 +12,7 @@ const Part = (props) => {
   return (
     <p>
       {props.part.name} {props.part.exercises}
-    </p>    
+    </p>
   )
 }
 
@@ -26,11 +26,19 @@ const Content = ({ course }) => {
   )
 }
 
-const Course = ({course}) => {
+const Total = (props) => {
+  console.log(props);
+  let total = 0;
+  props.course.parts.map((part) => (total += part.exercises));
+  return <p><strong>Total of {total} exercises</strong></p>;
+};
+
+const Course = ({ course }) => {
   return (
     <div>
       <Header course={course} />
-      <Content course={course}/>
+      <Content course={course} />
+      <Total course={course} />
     </div>
   )
 }
