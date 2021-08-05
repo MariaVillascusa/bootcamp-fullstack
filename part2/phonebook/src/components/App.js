@@ -6,19 +6,22 @@ const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas' }
   ])
-
   const [newName, setNewName] = useState('')
 
   const addPerson = (e) => {
     e.preventDefault()
+    if (isRepeat) {
+      alert(`${newName} is already added to phonebook`)
+      return
+    }
     const personObj = { name: newName }
     setPersons(persons.concat(personObj))
     setNewName("")
   }
 
-  const handleChange = (e) => {
-    setNewName(e.target.value)
-  }
+  const handleChange = e => setNewName(e.target.value)
+
+  const isRepeat = (persons.findIndex(person => person.name === newName)) !== -1
 
   return (
     <div>
