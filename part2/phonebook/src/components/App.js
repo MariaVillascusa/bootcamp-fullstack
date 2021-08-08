@@ -49,9 +49,9 @@ useEffect(()=>{
       <h2>Phonebook</h2>
       <Filter findValue={findValue} findPerson={findPerson}/>
       <h2>Add a new</h2>
-      <Form onSubmit={addPerson} />
+      <Form onSubmit={addPerson} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <Persons persons={persons} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
+      <Persons persons={persons} />
     </div>
   )
 }
