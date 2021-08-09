@@ -1,16 +1,25 @@
+import { useState, useEffect } from "react"
+import axios from 'axios'
 import Button from './Button'
+import Data from './Data'
 
 const OneCountry = ({ country }) => {
+    const [weather, setWeather] = useState([])
+    const api_key = process.env.REACT_APP_API_KEY
+    const url = 'http://api.weatherstack.com/current?access_key=' + api_key + '=' + country.capital
+    useEffect(() => {
+        axios
+            .get(url)
+            .then(response => {
+                const temperature = (response.data.current.temperature)
+                const icon = (response.data.current.weather_icons[0])
+                const wind = response.data.current.wind_speed + " mph direction " + response.data.current.wind_dir
+                setWeather(weather.concat(temperature).concat(icon).concat(wind))
+            })
+    }, [url, weather])
+
     return (
-        <div>
-            <h2>{country.name}</h2>
-            <p>Capital: {country.capital}</p>
-            <h4>Languajes</h4>
-            <ul>
-                {country.languages.map(language => <li key={language.name}>{language.name}</li>)}
-            </ul>
-            <img src={country.flag} alt="Flag"></img>
-        </div>
+        <Data country={country} weather={weather} />
     )
 }
 

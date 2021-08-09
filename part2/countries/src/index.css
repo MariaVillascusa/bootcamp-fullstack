@@ -41,23 +41,23 @@ input[type="text"] {
   margin-top: 20px;
 }
 
-.country{
-  display:flex;
+.country {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-button{
+button {
   margin-left: 10px;
   border: none;
   height: 35px;
   border-radius: 4px;
-  background-color:#A2AD91;
+  background-color: #a2ad91;
   color: white;
-  transition: background .4s;
+  transition: background 0.4s;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
-  background-color: #707567
+  background-color: #707567;
 }
