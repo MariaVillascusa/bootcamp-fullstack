@@ -10,11 +10,11 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [findValue, setFind] = useState('')
 
-useEffect(()=>{
-  axios
-  .get('http://localhost:3001/persons')
-  .then(response => setPersons(response.data))
-},[])
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => setPersons(response.data))
+  }, [])
 
   const addPerson = (e) => {
     e.preventDefault()
@@ -26,8 +26,13 @@ useEffect(()=>{
       name: newName,
       number: newNumber
     }
-    setPersons(persons.concat(personObj))
-    setNewName("")
+    axios
+      .post('http://localhost:3001/persons', personObj)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')
+      })
   }
   const isRepeat = (persons.findIndex(person => person.name === newName)) !== -1
 
@@ -47,7 +52,7 @@ useEffect(()=>{
   return (
     <div className="container">
       <h2>Phonebook</h2>
-      <Filter findValue={findValue} findPerson={findPerson}/>
+      <Filter findValue={findValue} findPerson={findPerson} />
       <h2>Add a new</h2>
       <Form onSubmit={addPerson} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
