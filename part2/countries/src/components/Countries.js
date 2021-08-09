@@ -1,3 +1,5 @@
+import Button from './Button'
+
 const OneCountry = ({ country }) => {
     return (
         <div>
@@ -14,12 +16,20 @@ const OneCountry = ({ country }) => {
 
 const Country = ({ name }) => <div><p>{name}</p></div>
 
-const Countries = ({ countries }) => {
+const Countries = ({ countries, handleClick }) => {
+
     if (countries.length === 1) return <OneCountry country={countries[0]} />
     if (countries.length > 10) return <p>Too many matches, specify another filter</p>
     return (
-        <div>
-            {countries.map(country => <Country key={country.name} name={country.name} />)}
+        <div className="countries">
+            {countries.map((country, index) => {
+                return (
+                    <div className="country" id={index} key={country.name}>
+                        <Country name={country.name} />
+                        <Button onClick={handleClick} />
+                    </div>
+                )
+            })}
         </div>
     )
 }

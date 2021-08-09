@@ -19,7 +19,8 @@ body {
 
 label {
   color: #d30c7b;
-  letter-spacing: 1.5px;
+  font-size: 18px;
+  letter-spacing: 2.5px;
   font-weight: bold;
 }
 
@@ -28,9 +29,35 @@ img {
 }
 
 input[type="text"] {
+  margin-top: 10px;
   background-color: transparent;
   width: 100%;
   outline: none;
   border: none;
   border-bottom: 2px solid #dbb4ad;
+}
+
+.countries {
+  margin-top: 20px;
+}
+
+.country{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button{
+  margin-left: 10px;
+  border: none;
+  height: 35px;
+  border-radius: 4px;
+  background-color:#A2AD91;
+  color: white;
+  transition: background .4s;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: #707567
 }

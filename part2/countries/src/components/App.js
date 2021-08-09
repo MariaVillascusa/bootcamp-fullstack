@@ -26,10 +26,16 @@ function App() {
     setCountries(search)
   }
 
+  const handleClick = (e) => {
+    const index = e.target.parentNode.getAttribute('id')
+    const oneCountry = [].concat(countries[index])
+    setCountries(oneCountry)
+  }
+
   return (
     <div className="App">
       <Filter onChange={handleChange} value={searchCountry} />
-      <Countries countries={countries} />
+      <Countries countries={countries} handleClick={handleClick} />
     </div>
   );
 }
