@@ -3,12 +3,14 @@ import Persons from './Persons'
 import Form from './Form'
 import Filter from './Filter'
 import personService from '../services/persons'
+import Notification from './Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [findValue, setFind] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     personService.getAll()
@@ -29,6 +31,7 @@ const App = () => {
           .then(changedPerson => {
             setPersons(persons.map(person => person.id !== updatedPerson[0].id ? person : changedPerson))
             clearForm()
+            showMessage("Updated", personObj)
           })
       } else {
         clearForm()
@@ -40,6 +43,8 @@ const App = () => {
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
         clearForm()
+        showMessage("Add", personObj)
+
       })
   }
 
@@ -67,11 +72,18 @@ const App = () => {
         })
     }
   }
+  const showMessage = (message, person) => {
+    setMessage(`${message} ${person.name}`)
+    setTimeout(() => {
+      setMessage(null)
+    }, 2000)
+  }
 
   return (
     <div className="container">
       <h1>Phonebook</h1>
       <Filter findValue={findValue} findPerson={findPerson} />
+      <Notification message={message} />
       <h2>Add a new</h2>
       <Form onSubmit={addPerson} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
