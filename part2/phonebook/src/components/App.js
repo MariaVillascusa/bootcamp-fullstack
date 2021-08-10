@@ -27,8 +27,8 @@ const App = () => {
       number: newNumber
     }
     personService
-    .create(personObj)
-    .then(returnedPerson => {
+      .create(personObj)
+      .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
@@ -49,6 +49,21 @@ const App = () => {
     setPersons(search)
   }
 
+  const deletePerson = (id) => {
+    console.log(persons[4].id);
+    console.log(id);
+    const person = persons.filter(person => person.id === id)
+    console.log(person);
+    if (window.confirm(`Delete ${person[0].name} ?`)) {
+      personService
+        .deletePersons(id)
+        .then(deletedPerson => {
+          console.log(deletedPerson);
+          setPersons(persons.filter(p => p.id !== id))
+        })
+    }
+  }
+
   return (
     <div className="container">
       <h2>Phonebook</h2>
@@ -56,7 +71,7 @@ const App = () => {
       <h2>Add a new</h2>
       <Form onSubmit={addPerson} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <Persons persons={persons} />
+      <Persons persons={persons} onClick={deletePerson} />
     </div>
   )
 }

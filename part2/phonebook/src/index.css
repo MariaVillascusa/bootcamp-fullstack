@@ -29,6 +29,11 @@ h2 {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.personData {
+  display: flex;
+  justify-content: space-between;
+}
+
 button {
   margin: 10px;
   padding: 7px 15px;
@@ -49,6 +54,12 @@ button:active {
   background-color: #ff0035;
 }
 
+.personData button {
+  font-size: 10px;
+  padding: 0px 8px;
+  margin-left: 20px;
+}
+
 form {
   display: flex;
   align-items: center;
@@ -64,6 +75,6 @@ input[type="text"] {
   background-color: transparent;
 }
 
-label{
+label {
   margin-right: 10px;
 }
