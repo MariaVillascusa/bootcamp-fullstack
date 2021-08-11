@@ -74,12 +74,10 @@ const App = () => {
   }
   const findPerson = e => {
     setFind(e.target.value)
-    filter();
   }
-  const filter = () => {
-    const search = persons.filter(person => person.name.toLowerCase().includes(findValue.toLocaleLowerCase()))
-    setPersons(search)
-  }
+ 
+  const filteredPersons = findValue.length === 1 ?
+  persons : persons.filter(person => person.name.toLowerCase().includes(findValue.toLocaleLowerCase()))
   
   const showMessage = (message, person) => {
     setMessage(`${message} ${person.name}`)
@@ -104,7 +102,7 @@ const App = () => {
       <h2>Add a new</h2>
       <Form onSubmit={addPerson} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <Persons persons={persons} onClick={deletePerson} />
+      <Persons persons={filteredPersons} onClick={deletePerson} />
     </div>
   )
 }

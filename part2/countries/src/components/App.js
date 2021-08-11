@@ -18,13 +18,10 @@ function App() {
 
   const handleChange = e => {
     setSearchCountry(e.target.value)
-    filter()
   }
 
-  const filter = () => {
-    const search = countries.filter(country => country.name.toLowerCase().indexOf(searchCountry.toLocaleLowerCase()) !== -1)
-    setCountries(search)
-  }
+  const filteredCountries = searchCountry.length === 1 ?
+    countries : countries.filter(country => country.name.toLowerCase().indexOf(searchCountry.toLocaleLowerCase()) !== -1)
 
   const handleClick = (e) => {
     const index = e.target.parentNode.getAttribute('id')
@@ -35,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <Filter onChange={handleChange} value={searchCountry} />
-      <Countries countries={countries} handleClick={handleClick} />
+      <Countries countries={filteredCountries} handleClick={handleClick} />
     </div>
   );
 }
