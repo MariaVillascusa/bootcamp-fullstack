@@ -49,7 +49,7 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         clearForm()
         showMessage("Add", personObj)
-      }).catch(err => showErrorMessage(`${personObj.name} can not be created`))
+      }).catch(err => showErrorMessage(err.response.data.error))
   }
 
   const deletePerson = (id) => {
@@ -75,10 +75,10 @@ const App = () => {
   const findPerson = e => {
     setFind(e.target.value)
   }
- 
+
   const filteredPersons = findValue.length === 1 ?
-  persons : persons.filter(person => person.name.toLowerCase().includes(findValue.toLocaleLowerCase()))
-  
+    persons : persons.filter(person => person.name.toLowerCase().includes(findValue.toLocaleLowerCase()))
+
   const showMessage = (message, person) => {
     setMessage(`${message} ${person.name}`)
     setTimeout(() => {
