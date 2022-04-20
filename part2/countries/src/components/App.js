@@ -10,23 +10,22 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('https://restcountries.eu/rest/v2/all')
+      .get('https://restcountries.com/v3.1/all')
       .then(response => {
         setCountries(response.data)
       })
-  }, [])
+  }, [searchCountry])
 
   const handleChange = e => {
     setSearchCountry(e.target.value)
   }
 
-  const filteredCountries = searchCountry.length === 1 ?
-    countries : countries.filter(country => country.name.toLowerCase().indexOf(searchCountry.toLocaleLowerCase()) !== -1)
-
-  const handleClick = (e) => {
-    const index = e.target.parentNode.getAttribute('id')
-    const oneCountry = [].concat(countries[index])
-    setCountries(oneCountry)
+  const filteredCountries = searchCountry.length === 1 
+  ? countries 
+  : countries.filter(country => country.name.common.toLowerCase().indexOf(searchCountry.toLocaleLowerCase()) !== -1)
+ 
+  const handleClick = (country) => {
+    setCountries([country])
   }
 
   return (
